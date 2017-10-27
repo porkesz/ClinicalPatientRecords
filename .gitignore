@@ -17,3 +17,11 @@ target/
 **/.settings/
 blog/bin/
 **/.tern-project
+
+# Netbeans files #
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
