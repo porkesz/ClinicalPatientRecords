@@ -28,7 +28,7 @@ public class DepartmentService{
 		return departments;
 	}
 	
-	public Department findPatient(int id){
+	public Department findDepartment(int id){
 		return departmentRepository.findOne(id);
 	}
 	

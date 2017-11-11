@@ -17,7 +17,7 @@ public class MainController {
 	
 	@Autowired
 	private PatientService patientService;
-
+	
 	@GetMapping("/")
 	public String home(){
 		return "index";
