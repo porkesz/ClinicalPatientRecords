@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import cpr.model.Employe;
 
+@SuppressWarnings("serial")
 public class CustomEmployeDetails extends Employe implements UserDetails{
 
 	public CustomEmployeDetails(final Employe employe) {
@@ -26,13 +27,11 @@ public class CustomEmployeDetails extends Employe implements UserDetails{
 
     @Override
     public String getPassword() {
-    	System.out.println("DB pass: " + super.getPassword());
         return super.getPassword();
     }
 
     @Override
     public String getUsername() {
-    	System.out.println("DB email: " + super.getEmail());
         return super.getEmail();
     }
 

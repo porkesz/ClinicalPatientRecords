@@ -28,6 +28,9 @@ CREATE TABLE `cprdb`.`employe` (
   `job` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC));
+  
+INSERT INTO cprdb.employe (firstname, lastname, email, password, start_date, job)
+VALUES ('Anna', 'Szabó', 'anna@a.hu', 'anna', cast('2015-11-01' as date), 'doctor');
 
 CREATE TABLE `cprdb`.`role` (
   `role_id` INT NOT NULL AUTO_INCREMENT,
