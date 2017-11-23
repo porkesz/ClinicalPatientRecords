@@ -28,3 +28,27 @@ CREATE TABLE `cprdb`.`employe` (
   `job` VARCHAR(100) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC));
+  
+INSERT INTO cprdb.employe (firstname, lastname, email, password, start_date, job)
+VALUES ('Anna', 'Szabó', 'anna@a.hu', 'anna', cast('2015-11-01' as date), 'doctor');
+
+CREATE TABLE `cprdb`.`role` (
+  `role_id` INT NOT NULL AUTO_INCREMENT,
+  `role` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`role_id`));
+  
+CREATE TABLE `cprdb`.`employe_role` (
+  `employe_id` INT NOT NULL,
+  `role_id` INT NOT NULL,
+  PRIMARY KEY (`employe_id`, `role_id`),
+  INDEX `fkRoleId_idx` (`role_id` ASC),
+  CONSTRAINT `fkEmployeId`
+    FOREIGN KEY (`employe_id`)
+    REFERENCES `cprdb`.`employe` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fkRoleId`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `cprdb`.`role` (`role_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);  

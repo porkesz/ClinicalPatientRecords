@@ -2,12 +2,20 @@ package cpr.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+
+import cpr.model.Role;
 
 @SuppressWarnings("serial")
 @Entity(name="employe")
@@ -35,18 +43,22 @@ public class Employe implements Serializable{
 	
 	@Column(name = "job")
 	private String job;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "employe_role", joinColumns = @JoinColumn(name = "employe_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
 	public Employe() {
 	}
 
-	public Employe(String firstname, String lastname, String email, String password, Date startDate,
-			String job) {
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.email = email;
-		this.password = password;
-		this.startDate = startDate;
-		this.job = job;
+	public Employe(Employe employe) {
+		this.firstname = employe.firstname;
+		this.lastname = employe.lastname;
+		this.email = employe.email;
+		this.password = employe.password;
+		this.startDate = employe.startDate;
+		this.job = employe.job;
+		this.roles = employe.roles;
 	}
 
 	public int getId() {
@@ -104,6 +116,14 @@ public class Employe implements Serializable{
 	public void setJob(String job) {
 		this.job = job;
 	}
+	
+	public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
 	@Override
 	public String toString() {

@@ -1,0 +1,27 @@
+{% extends "/templates/sampleBase.twig" %}
+
+{% block content %}
+<div class="container text-center">
+	<h3>Login into Clinical Patient Records</h3>
+	<form class="form-horizontal" method="POST" action="/login">	
+		<div id="login-alert" class="alert alert-error hide-error">
+                Invalid email or password!
+        </div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Email</label>
+			<div class="col-md-7">
+				<input type="text" class="form-control" name="username"/>
+			</div>				
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Password</label>
+			<div class="col-md-7">
+				<input type="text" class="form-control" name="password"/>
+			</div>									
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary" value="Login"/>
+		</div>
+	</form>
+</div>
+{% endblock %}
