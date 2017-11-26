@@ -2,6 +2,8 @@ package cpr.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.transaction.Transactional;
 
@@ -38,5 +40,32 @@ public class PatientService {
 	
 	public void delete(int id){
 		patientRepository.delete(id);
+	}
+	public boolean validation(Patient patient) {
+		String name=patient.getFirstname()+patient.getLastname();
+		for (int i=0;i<name.length();i++) {
+			int c=name.charAt(i);
+			if ( ( (c>=65) && (c<=90)  ) || ( (c>=97) && (c<=122) ) ) {				
+			}
+			else {return false;}
+		}
+		
+		String email =patient.getEmail();
+		Pattern p = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
+		Matcher m = p.matcher(email);
+		boolean matchFound = m.matches();
+		if (!matchFound) {
+		    return false;
+		}
+		
+		String phone=patient.getTelephone();
+		for (int i=0;i<phone.length();i++) {
+			int c=phone.charAt(i);
+			if ( (c>=48) && (c<=57) && phone.length()==10   ) {				
+			}
+			else { return false;}
+		}
+		
+		return true;
 	}
 }
