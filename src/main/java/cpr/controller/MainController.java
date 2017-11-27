@@ -38,9 +38,13 @@ public class MainController {
 	
 	@PostMapping("/save-patient")
 	public String savePatient(@ModelAttribute Patient patient, BindingResult bindingResult, ModelMap model){
-		patientService.save(patient);
-		model.addAttribute("patients", patientService.findAll());
-		return "allPatient";
+		if (patientService.validation(patient)==true) {
+			patientService.save(patient);
+			model.addAttribute("patients", patientService.findAll());
+			return "allPatient";
+		}
+		model.addAttribute("error",true);
+		 return "newPatient";
 	}
 	
 	@GetMapping("/update-patient")
