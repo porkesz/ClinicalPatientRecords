@@ -1,0 +1,52 @@
+{% extends "/templates/base.twig" %}
+
+{% block content %}
+<div class="container text-center">
+	<h3>Disease page</h3>
+	<hr>
+	<form class="form-horizontal" method="POST" action="save-disease">
+		<input type="hidden" name="id" value="{{ disease.id }}"/>
+		<input type="hidden" name="patient" value="{{ disease.patient.id }}"/>
+		<input type="hidden" name="employe" value="{{ disease.employe.id }}"/>
+		<div class="form-group">
+			<label class="control-label col-md-3">Department</label>
+			<div class="col-md-7">
+                <select class="form-control" name="department">
+                	{% for department in departments %}
+				    	{% if department.id == disease.department.id %}
+				    		<option selected="selected" value="{{ department.id }}">{{ department.getDepartmentName }}</option>
+				    	{% else %}
+				    		<option value="{{ department.id }}">{{ department.getDepartmentName }}</option>
+				    	{% endif %}
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Disease description</label>
+			<div class="col-md-7">
+				<input type="text" class="form-control" name="description" value="{{ disease.description }}"/>
+			</div>				
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">Start date</label>
+			<div class="col-md-7">
+                <input id='datetimepicker-start' class="form-control" name="startDate" value="{{ disease.getStartDate }}"/>
+			</div>				
+		</div>
+		<div class="form-group">
+			<label class="control-label col-md-3">End date</label>
+			<div class="col-md-7">
+				<input id='datetimepicker-end' class="form-control" name="endDate" value="{{ disease.getEndDate }}"/>
+			</div>
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary" value="Save"/>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+    $('#datetimepicker-start').datetimepicker();
+    $('#datetimepicker-end').datetimepicker();
+</script>
+{% endblock %}
