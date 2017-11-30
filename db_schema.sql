@@ -83,3 +83,19 @@ CREATE TABLE `cprdb`.`disease` (
 
 INSERT INTO cprdb.disease (patient_id, employe_id, department_id, description, start_date, end_date)
 VALUES (1, 1, 1, 'disease description', cast('2017-11-01' as date), cast('2017-11-11' as date));
+
+CREATE TABLE `cprdb`.`employe_department` (
+  `employe_id` INT NOT NULL,
+  `department_id` INT NOT NULL,
+  PRIMARY KEY (`employe_id`, `department_id`),
+  INDEX `departmentFk_idx` (`department_id` ASC),
+  CONSTRAINT `employeFk0`
+    FOREIGN KEY (`employe_id`)
+    REFERENCES `cprdb`.`employe` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `departmentFk0`
+    FOREIGN KEY (`department_id`)
+    REFERENCES `cprdb`.`department` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION);

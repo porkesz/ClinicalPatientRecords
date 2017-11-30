@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import cpr.model.Role;
@@ -47,6 +48,10 @@ public class Employe implements Serializable{
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "employe_role", joinColumns = @JoinColumn(name = "employe_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+	
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "employe_department", joinColumns = @JoinColumn(name = "employe_id"), inverseJoinColumns = @JoinColumn(name = "department_id"))
+    private Set<Department> departments;
 
 	public Employe() {
 	}
@@ -59,6 +64,7 @@ public class Employe implements Serializable{
 		this.startDate = employe.startDate;
 		this.job = employe.job;
 		this.roles = employe.roles;
+		this.departments = employe.departments;
 	}
 
 	public int getId() {
@@ -123,6 +129,14 @@ public class Employe implements Serializable{
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+    
+    public Set<Department> getDepartments() {
+    	return departments;
+    }
+    
+    public void setDepartments(Set<Department> departments) {
+    	this.departments = departments;
     }
 
 	@Override
