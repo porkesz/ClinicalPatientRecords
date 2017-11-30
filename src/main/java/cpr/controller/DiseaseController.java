@@ -42,7 +42,6 @@ public class DiseaseController {
 	public String newDisease(@RequestParam int patientId, ModelMap model){
 		model.addAttribute("patient", patientService.findPatient(patientId));
 		model.addAttribute("employe", getSignedEmploye());
-		model.addAttribute("departments", departmentService.findAll());
 		return "disease";
 	}
 	
@@ -51,7 +50,6 @@ public class DiseaseController {
 		model.addAttribute("disease", diseaseService.findDisease(diseaseId));
 		model.addAttribute("patient", patientService.findPatient(patientId));
 		model.addAttribute("employe", getSignedEmploye());
-		model.addAttribute("departments", departmentService.findAll());
 		return "disease";
 	}
 	
