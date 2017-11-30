@@ -51,4 +51,35 @@ CREATE TABLE `cprdb`.`employe_role` (
     FOREIGN KEY (`role_id`)
     REFERENCES `cprdb`.`role` (`role_id`)
     ON DELETE CASCADE
-    ON UPDATE NO ACTION);  
+    ON UPDATE NO ACTION);
+    
+CREATE TABLE `cprdb`.`disease` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `patient_id` INT NOT NULL,
+  `employe_id` INT NOT NULL,
+  `department_id` INT NOT NULL,
+  `description` VARCHAR(255) NULL,
+  `start_date` DATETIME NULL,
+  `end_date` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `patinetFk_idx` (`patient_id` ASC),
+  INDEX `employe_id_idx` (`employe_id` ASC),
+  INDEX `department_id_idx` (`department_id` ASC),
+  CONSTRAINT `patinetFk`
+    FOREIGN KEY (`patient_id`)
+    REFERENCES `cprdb`.`patient` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `employeFk`
+    FOREIGN KEY (`employe_id`)
+    REFERENCES `cprdb`.`employe` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `departmentFk`
+    FOREIGN KEY (`department_id`)
+    REFERENCES `cprdb`.`department` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+INSERT INTO cprdb.disease (patient_id, employe_id, department_id, description, start_date, end_date)
+VALUES (1, 1, 1, 'disease description', cast('2017-11-01' as date), cast('2017-11-11' as date));
