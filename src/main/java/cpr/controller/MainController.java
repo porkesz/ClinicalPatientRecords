@@ -8,9 +8,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import cpr.model.Patient;
+import cpr.service.DiseaseService;
 import cpr.service.PatientService;
 
 @PreAuthorize("hasAnyRole('USER')")
@@ -19,6 +22,9 @@ public class MainController {
 	
 	@Autowired
 	private PatientService patientService;
+	
+	@Autowired
+	private DiseaseService diseaseService;
 	
 	@GetMapping("/")
 	public String home(){
@@ -44,7 +50,7 @@ public class MainController {
 			return "allPatient";
 		}
 		model.addAttribute("error",true);
-		 return "newPatient";
+		return "newPatient";
 	}
 	
 	@GetMapping("/update-patient")
@@ -58,5 +64,17 @@ public class MainController {
 		patientService.delete(id);
 		model.addAttribute("patients", patientService.findAll());
 		return "allPatient";
+	}
+	
+	@RequestMapping(value = "/patient", method = {RequestMethod.POST, RequestMethod.GET})
+	public String patient(@RequestParam int id, ModelMap model) {
+		Patient patient = patientService.findPatient(id);
+		model.addAttribute("patient", patient);
+		try {
+			model.addAttribute("diseases", diseaseService.getDiseaseByPatient(patient));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "patient";
 	}
 }

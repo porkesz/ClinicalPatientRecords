@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import cpr.dao.DiseaseRepository;
 import cpr.model.Disease;
-import cpr.model.Employe;
+import cpr.model.Patient;
 
 
 @Service
@@ -36,5 +36,14 @@ public class DiseaseService {
 	
 	public void save(Disease disease){
 		diseaseRepository.save(disease);
+	}
+	
+	public void delete(int id){
+		diseaseRepository.delete(id);
+	}
+	
+	public List<Disease> getDiseaseByPatient(Patient patient) throws Exception{
+		List<Disease> diseaseList = diseaseRepository.findByPatient(patient);
+        return diseaseList;
 	}
 }

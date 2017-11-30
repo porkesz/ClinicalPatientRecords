@@ -6,8 +6,8 @@
 	<hr>
 	<form class="form-horizontal" method="POST" action="save-disease">
 		<input type="hidden" name="id" value="{{ disease.id }}"/>
-		<input type="hidden" name="patient" value="{{ disease.patient.id }}"/>
-		<input type="hidden" name="employe" value="{{ disease.employe.id }}"/>
+		<input type="hidden" name="patient" value="{{ patient.id }}"/>
+		<input type="hidden" name="employe" value="{{ employe.id }}"/>
 		<div class="form-group">
 			<label class="control-label col-md-3">Department</label>
 			<div class="col-md-7">
@@ -46,7 +46,11 @@
 	</form>
 </div>
 <script type="text/javascript">
-    $('#datetimepicker-start').datetimepicker();
-    $('#datetimepicker-end').datetimepicker();
+    $('#datetimepicker-start').datetimepicker({
+        format: "Y-m-d h:i"
+    });
+    $('#datetimepicker-end').datetimepicker({
+    	format: "Y-m-d h:i"
+    });
 </script>
 {% endblock %}

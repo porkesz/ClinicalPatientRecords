@@ -2,12 +2,15 @@ package cpr.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import cpr.dao.EmployeRepository;
+import cpr.model.CustomEmployeDetails;
 import cpr.model.Employe;
 
 @Service
@@ -38,6 +41,15 @@ public class EmployeService {
 	
 	public void delete(int id){
 		employeRepository.delete(id);
+	}
+	
+	public Employe getEmployeByEmail(String email) throws Exception{
+		Optional<Employe> optionalEmploye = employeRepository.findByEmail(email);
+		
+        optionalEmploye
+                .orElseThrow(() -> new Exception("Email not found"));
+        
+        return optionalEmploye.get();
 	}
 
 }

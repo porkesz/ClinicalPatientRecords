@@ -12,8 +12,7 @@
 					<th>Firstname</th>
 					<th>Lastname</th>
 					<th>Email</th>
-					<th>Telephone</th>
-					<th>Social Security Number</th>
+					<th></th>
 					<th></th>
 					<th></th>
 				</tr>
@@ -25,10 +24,9 @@
 						<td>{{ patient.firstname }}</td>
 						<td>{{ patient.lastname }}</td>
 						<td>{{ patient.email }}</td>
-						<td>{{ patient.telephone }}</td>
-						<td>{{ patient.socialSecurityNumber }}</td>
 						<td><a href="update-patient?id={{patient.id}}"><span class="glyphicon glyphicon-pencil"></span></a></td>
 						<td><a href="delete-patient?id={{patient.id}}"><span class="glyphicon glyphicon-trash"></span></a></td>
+						<td><a href="patient?id={{patient.id}}"><span class="glyphicon glyphicon-ok"></span></a></td>
 					</tr>
 				{% endfor %}
 			</tbody>

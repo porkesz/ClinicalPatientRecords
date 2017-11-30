@@ -1,7 +1,6 @@
 package cpr.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,16 +35,16 @@ public class Disease implements Serializable{
 	private String description;
 	
 	@Column(name = "start_date")
-	private Date startDate;
+	private String startDate;
 	
 	@Column(name = "end_date")
-	private Date endDate;
+	private String endDate;
 
 	public Disease() {
 	}
 
-	public Disease(Patient patient, Employe employe, Department department, String description, Date startDate,
-			Date endDate) {
+	public Disease(Patient patient, Employe employe, Department department, String description, String startDate,
+			String endDate) {
 		super();
 		this.patient = patient;
 		this.employe = employe;
@@ -53,6 +52,14 @@ public class Disease implements Serializable{
 		this.description = description;
 		this.startDate = startDate;
 		this.endDate = endDate;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Patient getPatient() {
@@ -87,19 +94,19 @@ public class Disease implements Serializable{
 		this.description = description;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
-
-	public void setStartDate(Date startDate) {
+	
+	public void setStartDate(String startDate){
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
-
-	public void setEndDate(Date endDate) {
+	
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 
