@@ -6,11 +6,9 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import cpr.dao.EmployeRepository;
-import cpr.model.CustomEmployeDetails;
 import cpr.model.Employe;
 
 @Service
