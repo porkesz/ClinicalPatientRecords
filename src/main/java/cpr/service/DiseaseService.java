@@ -50,35 +50,37 @@ public class DiseaseService {
 		return diseaseList;
 	}
 
-	public boolean validator(String description, String start_date, String end_date) {
-
+	public boolean validator(Disease disease) {
 		int count = 0;
-		for (int i = 0; i < description.length(); i++) {
-			int c = description.charAt(i);
+		for (int i = 0; i < disease.getDescription().length(); i++) {
+			int c = disease.getDescription().charAt(i);
 			if (((c >= 65) && (c <= 90)) || ((c >= 97) && (c <= 122))) {
 				count++;
 			}
 		}
+		
 		if (count == 0) {
 			return false;
 		}
 
-		if (start_date == "") {
+		if (disease.getStartDate() == "") {
 			return false;
 		}
-		try {
-			DateFormat format = new SimpleDateFormat("yyyy.MM.dd");
-			Date date_start = format.parse(start_date);
-			Date date_end = format.parse(end_date);
-			int comp = date_start.compareTo(date_end);
-			if (comp != -1) {
-				return false;
+		
+		if (disease.getEndDate() != "") {
+			try {
+				DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				Date date_start = format.parse(disease.getStartDate());
+				Date date_end = format.parse(disease.getEndDate());
+				int comp = date_start.compareTo(date_end);
+				if (comp != -1) {
+					return false;
+				}
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
-
-		} catch (ParseException e) {
-			return false;
 		}
-
+		
 		return true;
 	}
 }

@@ -4,7 +4,7 @@
 <div class="container text-center">
 <h3>Manage Patient</h3>
 	{% if error == true %}
-	<div>Invalid patient data</div>
+		<div class="alert">Invalid patient data</div>
 	{% endif %}
 	<form class="form-horizontal" method="POST" action="save-patient">
 		<input type="hidden" name="id" value="{{ patient.id }}"/>
