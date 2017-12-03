@@ -11,6 +11,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
 	@Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("cprLogin");
+        registry.addViewController("/403").setViewName("accessDenied");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
     }
 }

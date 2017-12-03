@@ -7,7 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import cpr.service.DepartmentService;
 
-@PreAuthorize("hasAnyRole('USER')")
+@PreAuthorize("hasAnyRole('ADMIN')")
 @Controller
 public class DepartmentController {
 	
