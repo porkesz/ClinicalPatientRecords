@@ -25,56 +25,61 @@ import cpr.service.PatientService;
 //@PreAuthorize("hasAnyRole('USER')")
 @Controller
 public class DiseaseController {
-	
+
 	@Autowired
 	private DiseaseService diseaseService;
-	
+
 	@Autowired
 	private DepartmentService departmentService;
-	
+
 	@Autowired
 	private PatientService patientService;
-	
+
 	@Autowired
 	private EmployeService employeService;
-	
+
 	@GetMapping("/new-disease")
-	public String newDisease(@RequestParam int patientId, ModelMap model){
+	public String newDisease(@RequestParam int patientId, ModelMap model) {
 		model.addAttribute("patient", patientService.findPatient(patientId));
 		model.addAttribute("employe", getSignedEmploye());
 		return "disease";
 	}
-	
+
 	@GetMapping("/update-disease")
-	public String updateDisease(@RequestParam int patientId, @RequestParam int diseaseId, ModelMap model){
+	public String updateDisease(@RequestParam int patientId, @RequestParam int diseaseId, ModelMap model) {
 		model.addAttribute("disease", diseaseService.findDisease(diseaseId));
 		model.addAttribute("patient", patientService.findPatient(patientId));
 		model.addAttribute("employe", getSignedEmploye());
 		return "disease";
 	}
-	
+
 	@PostMapping("/save-disease")
-	public String saveDisease(@ModelAttribute Disease disease, BindingResult bindingResult, ModelMap model){
-		diseaseService.save(disease);
-		return "forward:/patient?id=" + disease.getPatient().getId();
+	public String saveDisease(@ModelAttribute Disease disease, BindingResult bindingResult, ModelMap model, String description, String start_date, String end_date) {
+		if (diseaseService.validator(description, start_date, end_date) == true) {
+			diseaseService.save(disease);
+			return "disease";
+		}
+		else {
+			return "forward:/patient?id=" + disease.getPatient().getId();
+		}
 	}
-	
+
 	@GetMapping("/delete-disease")
-	public String deleteDisease(@RequestParam int diseaseId, @RequestParam int patientId, ModelMap model){
+	public String deleteDisease(@RequestParam int diseaseId, @RequestParam int patientId, ModelMap model) {
 		diseaseService.delete(diseaseId);
 		return "forward:/patient?id=" + patientId;
 	}
 
-	private Employe getSignedEmploye(){
+	private Employe getSignedEmploye() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Employe actEmploye = new Employe();
-		
+
 		try {
 			actEmploye = employeService.getEmployeByEmail(auth.getName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return actEmploye;
 	}
 }
