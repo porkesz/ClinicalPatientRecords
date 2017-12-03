@@ -45,9 +45,9 @@ public class PatientService {
 		String name=patient.getFirstname()+patient.getLastname();
 		for (int i=0;i<name.length();i++) {
 			int c=name.charAt(i);
-			if ( ( (c>=65) && (c<=90)  ) || ( (c>=97) && (c<=122) ) ) {				
+			if ( !(((c>=65) && (c<=90)) || ((c>=97) && (c<=122))) ) {		
+				return false;
 			}
-			else {return false;}
 		}
 		
 		String email =patient.getEmail();
@@ -59,11 +59,16 @@ public class PatientService {
 		}
 		
 		String phone=patient.getTelephone();
+		
+		if (phone.length() < 10) {
+			return false;
+		}
+		
 		for (int i=0;i<phone.length();i++) {
 			int c=phone.charAt(i);
-			if ( (c>=48) && (c<=57) && phone.length()==10   ) {				
+			if ( !((c>=48) && (c<=57)) ) {
+				return false;
 			}
-			else { return false;}
 		}
 		
 		return true;

@@ -39,20 +39,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers("**/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
-                .formLogin().loginPage("/login").permitAll();
+                .formLogin().loginPage("/login").permitAll()
+                .and()
+        		.exceptionHandling().accessDeniedPage("/403");
     }
 
     private PasswordEncoder getPasswordEncoder() {
         return new PasswordEncoder() {
             @Override
             public String encode(CharSequence charSequence) {
-            	System.out.println("encode: " + charSequence.toString());
                 return charSequence.toString();
             }
 
             @Override
             public boolean matches(CharSequence charSequence, String s) {
-            	System.out.println("matches: " + charSequence.toString() + "  " + s);
             	if (charSequence.toString().equals(s)) {
             		return true;
             	}
